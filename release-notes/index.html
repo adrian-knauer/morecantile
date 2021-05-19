@@ -1,0 +1,773 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Construct and use map tile grids (a.k.a TileMatrixSet / TMS).">
+      
+      
+      
+      
+        <link rel="canonical" href="https://developmentseed.org/morecantile/release-notes/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>Release - morecantile</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#e92063">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,700%7CFira+Code&display=fallback">
+        <style>:root{--md-text-font-family:"Nunito Sans";--md-code-font-family:"Fira Code"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="pink" data-md-color-accent="light-pink">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#212-2021-05-18" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="morecantile" class="md-header__button md-logo" aria-label="morecantile" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            morecantile
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Release
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/developmentseed/morecantile/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    developmentseed/morecantile
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="morecantile" class="md-nav__button md-logo" aria-label="morecantile" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+
+    </a>
+    morecantile
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/developmentseed/morecantile/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    developmentseed/morecantile
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        Usage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        CLI
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        Development - Contributing
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Release
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Release
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#212-2021-05-18" class="md-nav__link">
+    2.1.2 (2021-05-18)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#211-2021-05-17" class="md-nav__link">
+    2.1.1 (2021-05-17)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#210-2020-12-17" class="md-nav__link">
+    2.1.0 (2020-12-17)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#201-2020-11-05" class="md-nav__link">
+    2.0.1 (2020-11-05)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#200-2020-11-04" class="md-nav__link">
+    2.0.0 (2020-11-04)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#131-2020-10-07" class="md-nav__link">
+    1.3.1 (2020-10-07)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#130post1-2020-09-30" class="md-nav__link">
+    1.3.0.post1 (2020-09-30)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#130-2020-09-30" class="md-nav__link">
+    1.3.0 (2020-09-30)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#120-2020-06-01" class="md-nav__link">
+    1.2.0 (2020-06-01)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#111-2020-05-15" class="md-nav__link">
+    1.1.1 (2020-05-15)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#110-2020-05-13" class="md-nav__link">
+    1.1.0 (2020-05-13)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#100-2020-05-11" class="md-nav__link">
+    1.0.0 (2020-05-11)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#010-2020-02-03" class="md-nav__link">
+    0.1.0 (2020-02-03)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#001-2020-01-23" class="md-nav__link">
+    0.0.1 (2020-01-23)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#212-2021-05-18" class="md-nav__link">
+    2.1.2 (2021-05-18)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#211-2021-05-17" class="md-nav__link">
+    2.1.1 (2021-05-17)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#210-2020-12-17" class="md-nav__link">
+    2.1.0 (2020-12-17)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#201-2020-11-05" class="md-nav__link">
+    2.0.1 (2020-11-05)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#200-2020-11-04" class="md-nav__link">
+    2.0.0 (2020-11-04)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#131-2020-10-07" class="md-nav__link">
+    1.3.1 (2020-10-07)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#130post1-2020-09-30" class="md-nav__link">
+    1.3.0.post1 (2020-09-30)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#130-2020-09-30" class="md-nav__link">
+    1.3.0 (2020-09-30)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#120-2020-06-01" class="md-nav__link">
+    1.2.0 (2020-06-01)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#111-2020-05-15" class="md-nav__link">
+    1.1.1 (2020-05-15)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#110-2020-05-13" class="md-nav__link">
+    1.1.0 (2020-05-13)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#100-2020-05-11" class="md-nav__link">
+    1.0.0 (2020-05-11)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#010-2020-02-03" class="md-nav__link">
+    0.1.0 (2020-02-03)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#001-2020-01-23" class="md-nav__link">
+    0.0.1 (2020-01-23)
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/developmentseed/morecantile/blob/master/src/release-notes.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>Release</h1>
+                
+                <h2 id="212-2021-05-18">2.1.2 (2021-05-18)<a class="headerlink" href="#212-2021-05-18" title="Permanent link">&para;</a></h2>
+<ul>
+<li>fix wrong TMS boundingBox definition when using inverted CRS (<a class="magiclink magiclink-github magiclink-pull" href="https://github.com/developmentseed/morecantile/pull/53" title="GitHub Pull Request: developmentseed/morecantile #53">developmentseed/morecantile!53</a>)</li>
+</ul>
+<h2 id="211-2021-05-17">2.1.1 (2021-05-17)<a class="headerlink" href="#211-2021-05-17" title="Permanent link">&para;</a></h2>
+<ul>
+<li>remove <code>mercantile</code> dependency.</li>
+<li>raise <code>PointOutsideTMSBounds</code> warning when user is doing operations outside TMS bounds.</li>
+<li>fix wrong <code>xy_bbox</code> when <code>tms.boundingBox</code> use a specific CRS.</li>
+</ul>
+<h2 id="210-2020-12-17">2.1.0 (2020-12-17)<a class="headerlink" href="#210-2020-12-17" title="Permanent link">&para;</a></h2>
+<ul>
+<li>add <code>zoom_level_strategy</code> option for <code>TileMatrixSet.zoom_for_res</code> to match GDAL 3.2.
+By default, it is set to <code>auto</code>, meaning that it will select the closest zoom level. User can set the strategy to <code>lower</code> or <code>upper</code> to select below or above zoom levels.
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">morecantile</span>
+<span class="n">tms</span> <span class="o">=</span> <span class="n">morecantile</span><span class="o">.</span><span class="n">tms</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;WebMercatorQuad&quot;</span><span class="p">)</span>
+
+<span class="c1"># native resolution of zoom 7 is 1222.9924 m</span>
+<span class="c1"># native resolution of zoom 8 is 611.4962 m</span>
+<span class="k">assert</span> <span class="n">tms</span><span class="o">.</span><span class="n">zoom_for_res</span><span class="p">(</span><span class="mf">612.0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span>
+<span class="k">assert</span> <span class="n">tms</span><span class="o">.</span><span class="n">zoom_for_res</span><span class="p">(</span><span class="mf">612.0</span><span class="p">,</span> <span class="n">zoom_level_strategy</span><span class="o">=</span><span class="s2">&quot;lower&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span>
+<span class="k">assert</span> <span class="n">tms</span><span class="o">.</span><span class="n">zoom_for_res</span><span class="p">(</span><span class="mf">612.0</span><span class="p">,</span> <span class="n">zoom_level_strategy</span><span class="o">=</span><span class="s2">&quot;upper&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span>
+</code></pre></div></li>
+</ul>
+<h2 id="201-2020-11-05">2.0.1 (2020-11-05)<a class="headerlink" href="#201-2020-11-05" title="Permanent link">&para;</a></h2>
+<ul>
+<li>simplify <code>morecantile.TileMatrixSet</code> default representation</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">morecantile</span> <span class="kn">import</span> <span class="n">tms</span>
+
+<span class="n">tms</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;WorldCRS84Quad&quot;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="o">&lt;</span><span class="n">TileMatrixSet</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;CRS84 for the World&#39;</span> <span class="n">identifier</span><span class="o">=</span><span class="s1">&#39;WorldCRS84Quad&#39;</span><span class="o">&gt;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">tms</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;WorldCRS84Quad&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span>
+    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;TileMatrixSetType&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="s1">&#39;CRS84 for the World&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;abstract&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s1">&#39;keywords&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s1">&#39;identifier&#39;</span><span class="p">:</span> <span class="s1">&#39;WorldCRS84Quad&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;supportedCRS&#39;</span><span class="p">:</span> <span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="mi">4326</span><span class="p">),</span>
+    <span class="s1">&#39;wellKnownScaleSet&#39;</span><span class="p">:</span> <span class="n">AnyHttpUrl</span><span class="p">(</span><span class="o">...</span><span class="p">),</span>
+    <span class="s1">&#39;boundingBox&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;BoundingBoxType&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;crs&#39;</span><span class="p">:</span> <span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="mi">4326</span><span class="p">),</span>
+        <span class="s1">&#39;lowerCorner&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">180.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">90.0</span><span class="p">),</span>
+        <span class="s1">&#39;upperCorner&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">180.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">)},</span>
+        <span class="s1">&#39;tileMatrix&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+    <span class="p">}</span>
+</code></pre></div>
+<h2 id="200-2020-11-04">2.0.0 (2020-11-04)<a class="headerlink" href="#200-2020-11-04" title="Permanent link">&para;</a></h2>
+<ul>
+<li>switch from <code>CoordBBox</code> to <code>rasterio.coords.BoundingBox</code> (ref: <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/developmentseed/morecantile/issues/38" title="GitHub Issue: developmentseed/morecantile #38">developmentseed/morecantile#38</a>).</li>
+<li>update <code>morecantile.commons</code> Tile and Coords to match rasterio's BoundingBox.</li>
+<li>rename <code>morecantile.models.BoundingBox</code> to <code>morecantile.models.TMSBoundingBox</code> to avoind name colision with rasterio's BoundingBox.</li>
+<li>improve default TMS immutability by making <code>morecantile.tms.register</code> to return a new TileMatrixSets instance (ref: <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/developmentseed/morecantile/issues/37" title="GitHub Issue: developmentseed/morecantile #37">developmentseed/morecantile#37</a>)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">morecantile</span> <span class="kn">import</span> <span class="nn">TileMatrixSet</span><span class="o">,</span> <span class="nn">tms</span>
+<span class="kn">from</span> <span class="nn">rasterio.crs</span> <span class="kn">import</span> <span class="n">CRS</span>
+
+<span class="n">crs</span> <span class="o">=</span> <span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="mi">3031</span><span class="p">)</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">948.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">543592.47</span><span class="p">,</span> <span class="mf">5817.41</span><span class="p">,</span> <span class="o">-</span><span class="mf">3333128.95</span><span class="p">]</span>  <span class="c1"># From https:///epsg.io/3031</span>
+<span class="n">custom_tms</span> <span class="o">=</span> <span class="n">TileMatrixSet</span><span class="o">.</span><span class="n">custom</span><span class="p">(</span><span class="n">extent</span><span class="p">,</span> <span class="n">crs</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="s2">&quot;MyCustomTmsEPSG3031&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tms</span><span class="o">.</span><span class="n">list</span><span class="p">()))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">10</span>
+
+<span class="n">defaults</span> <span class="o">=</span> <span class="n">tms</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">custom_tms</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tms</span><span class="o">.</span><span class="n">list</span><span class="p">()))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">10</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">defaults</span><span class="o">.</span><span class="n">list</span><span class="p">()))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">11</span>
+</code></pre></div>
+<h2 id="131-2020-10-07">1.3.1 (2020-10-07)<a class="headerlink" href="#131-2020-10-07" title="Permanent link">&para;</a></h2>
+<ul>
+<li>remove <code>pkg_resources</code> (<a class="magiclink magiclink-github magiclink-issue" href="https://github.com/pypa/setuptools/issues/510" title="GitHub Issue: pypa/setuptools #510">pypa/setuptools#510</a>, <a class="magiclink magiclink-github magiclink-pull" href="https://github.com/developmentseed/morecantile/pull/36" title="GitHub Pull Request: developmentseed/morecantile #36">developmentseed/morecantile!36</a>)</li>
+<li>add <code>TILEMATRIXSET_DIRECTORY</code> to allow morecantile to load user's TMS</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Save custom TMS to a file</span>
+<span class="kn">import</span> <span class="nn">morecantile</span>
+<span class="kn">from</span> <span class="nn">rasterio.crs</span> <span class="kn">import</span> <span class="n">CRS</span>
+
+<span class="n">crs</span> <span class="o">=</span> <span class="n">CRS</span><span class="o">.</span><span class="n">from_epsg</span><span class="p">(</span><span class="mi">3031</span><span class="p">)</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">948.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">543592.47</span><span class="p">,</span> <span class="mf">5817.41</span><span class="p">,</span> <span class="o">-</span><span class="mf">3333128.95</span><span class="p">]</span>  <span class="c1"># From https:///epsg.io/3031</span>
+<span class="n">tms</span> <span class="o">=</span> <span class="n">morecantile</span><span class="o">.</span><span class="n">TileMatrixSet</span><span class="o">.</span><span class="n">custom</span><span class="p">(</span><span class="n">extent</span><span class="p">,</span> <span class="n">crs</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="s2">&quot;MyCustomTmsEPSG3031&quot;</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/tmp/mytms/MyCustomTmsEPSG3031.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tms</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;TILEMATRIXSET_DIRECTORY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;/tmp/mytms&quot;</span>
+
+<span class="kn">from</span> <span class="nn">morecantile</span> <span class="kn">import</span> <span class="n">tms</span>
+<span class="k">assert</span> <span class="s2">&quot;MyCustomTmsEPSG3031&quot;</span> <span class="ow">in</span> <span class="n">tms</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="130post1-2020-09-30">1.3.0.post1 (2020-09-30)<a class="headerlink" href="#130post1-2020-09-30" title="Permanent link">&para;</a></h2>
+<ul>
+<li>fix TileMatrixSet's model schema bug where pydantic wasn't able to translate <code>Union[rasterio.crs.CRS, pydantic.AnyHttpUrl]</code> to a valid schema (ref: <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/developmentseed/morecantile/issues/34" title="GitHub Issue: developmentseed/morecantile #34">developmentseed/morecantile#34</a>)</li>
+</ul>
+<h2 id="130-2020-09-30">1.3.0 (2020-09-30)<a class="headerlink" href="#130-2020-09-30" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Allow Custom CRS for custom TMS definition (<a class="magiclink magiclink-github magiclink-issue" href="https://github.com/developmentseed/morecantile/issues/23" title="GitHub Issue: developmentseed/morecantile #23">developmentseed/morecantile#23</a>)</li>
+<li>Extend TMS beyond TMS Document max zoom level (<a class="magiclink magiclink-github magiclink-pull" href="https://github.com/developmentseed/morecantile/pull/28" title="GitHub Pull Request: developmentseed/morecantile #28">developmentseed/morecantile!28</a>)</li>
+<li>Require rasterio &gt;= 1.1.7 (sept 2020) to support inverted lat/lon TMS (ref: <a class="magiclink magiclink-github magiclink-issue" href="https://github.com/developmentseed/morecantile/issues/26" title="GitHub Issue: developmentseed/morecantile #26">developmentseed/morecantile#26</a>)</li>
+<li>Remove deprecated function</li>
+<li>Add <code>tms.xy_bbox</code> and <code>tms.bbox</code> properties to return TileMatrixSet boundaries.</li>
+<li>Add <code>tms.intersect_tms</code> to check if a bbox intersect with the TileMatrixSet boundaries.</li>
+<li>Avoid out-range tiles (e.g. negative indexes)</li>
+<li>Add <code>tms.zoom_for_res</code> function to get the TMS zoom level for a specific resolution (<a class="magiclink magiclink-github magiclink-issue" href="https://github.com/developmentseed/morecantile/issues/31" title="GitHub Issue: developmentseed/morecantile #31">developmentseed/morecantile#31</a>).</li>
+</ul>
+<h2 id="120-2020-06-01">1.2.0 (2020-06-01)<a class="headerlink" href="#120-2020-06-01" title="Permanent link">&para;</a></h2>
+<ul>
+<li>add TileMatrixSet minzoom/maxzoom properties</li>
+<li>fix TileMatrixSet.tile calculation</li>
+<li>add TileMatrixSet.tiles function (replicat from mercantile)</li>
+<li>add buffer and projected options to TileMatrixSet.feature method</li>
+<li>removes mercantile as dependencies</li>
+<li>add CLI</li>
+<li>renamed <code>morecantile.TileMatrixSet.point_towgs84</code> to <code>morecantile.TileMatrixSet.lnglat</code> (matches mercantile)</li>
+<li>renamed <code>morecantile.TileMatrixSet.point_fromwgs84</code> to <code>morecantile.TileMatrixSet.xy</code> (matches mercantile)</li>
+<li>add <code>truncate</code> option in <code>morecantile.TileMatrixSet.tile</code> (matches mercantile)</li>
+<li>re-order buffer and precision options in <code>morecantile.TileMatrixSet.feature</code> (matches mercantile)</li>
+<li>uses mercantile's tests</li>
+</ul>
+<h2 id="111-2020-05-15">1.1.1 (2020-05-15)<a class="headerlink" href="#111-2020-05-15" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fix bad default TMS files (<a class="magiclink magiclink-github magiclink-issue" href="https://github.com/developmentseed/morecantile/issues/13" title="GitHub Issue: developmentseed/morecantile #13">developmentseed/morecantile#13</a>)</li>
+<li>Add regex in model for identifier validation</li>
+</ul>
+<h2 id="110-2020-05-13">1.1.0 (2020-05-13)<a class="headerlink" href="#110-2020-05-13" title="Permanent link">&para;</a></h2>
+<ul>
+<li>better submodule definition</li>
+<li>add <code>morecantile.tms</code> object to access and register defaults TileMatrixSet</li>
+<li>Add depreciation warning for <code>morecantile.TileMatrixSet.load</code> method</li>
+</ul>
+<h2 id="100-2020-05-11">1.0.0 (2020-05-11)<a class="headerlink" href="#100-2020-05-11" title="Permanent link">&para;</a></h2>
+<p>Major refactor of Morecantile, which is now based on OGC TileMatrixSet JSON documents.</p>
+<ul>
+<li>use pydantic model to validate TMS JSON documents (<a class="magiclink magiclink-github magiclink-pull" href="https://github.com/developmentseed/morecantile/pull/6" title="GitHub Pull Request: developmentseed/morecantile #6">developmentseed/morecantile!6</a>, author @geospatial-jeff)</li>
+<li>morecantile methods are part of the TMS model (<a class="magiclink magiclink-github magiclink-pull" href="https://github.com/developmentseed/morecantile/pull/7" title="GitHub Pull Request: developmentseed/morecantile #7">developmentseed/morecantile!7</a>)</li>
+</ul>
+<h2 id="010-2020-02-03">0.1.0 (2020-02-03)<a class="headerlink" href="#010-2020-02-03" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Rename defaults grids (<a class="magiclink magiclink-github magiclink-issue" href="https://github.com/developmentseed/morecantile/issues/1" title="GitHub Issue: developmentseed/morecantile #1">developmentseed/morecantile#1</a>)</li>
+</ul>
+<h2 id="001-2020-01-23">0.0.1 (2020-01-23)<a class="headerlink" href="#001-2020-01-23" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Initial release</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../contributing/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Development - Contributing
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/developmentseed" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/developmentseed" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>
